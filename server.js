@@ -9,6 +9,8 @@ const app = express();
 //load the quotes JSON
 const quotes = require("./quotes.json");
 
+// Challange 1
+
 // Now register handlers for some routes:
 //   /                  - Return some helpful welcome info (text)
 //   /quotes            - Should return all quotes (json)
@@ -26,6 +28,36 @@ app.get('/quotes', (request, response) => {
 app.get('/quotes/random', (request, response) => {
   response.send(pickFromArray(quotes))
 });
+
+// Challange 2
+
+// In this exercise the user will send data through the url.
+
+// When the user changes the url like this:
+
+// /quotes/search?term=life
+// /quotes/search?term=success
+// /quotes/search?term=miss
+// The server will respond with life, success, miss
+
+// Extra (bonus) requirements:
+
+// bonus: make your search case-insensitive
+// bonus: make the search return matches on quote OR author text.
+
+app.get ('/quotes/search', (request, response) => {
+  const term = request.query.term.toLowerCase()
+  const filteredQuotes = (quoteArray, term) => {
+    let newArray = quoteArray.filter((eachQuote) => {
+      if (eachQuote.quote.toLowerCase().includes(term)) {
+        return eachQuote.quote
+      }
+    })
+    return newArray
+  }
+  response.send(filteredQuotes(quotes, term))
+})
+
 //...END OF YOUR CODE
 
 //You can use this function to pick one element at random from a given array
