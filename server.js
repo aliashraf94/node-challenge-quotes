@@ -47,15 +47,8 @@ app.get('/quotes/random', (request, response) => {
 
 app.get ('/quotes/search', (request, response) => {
   const term = request.query.term.toLowerCase()
-  const filteredQuotes = (quoteArray, term) => {
-    let newArray = quoteArray.filter((eachQuote) => {
-      if (eachQuote.quote.toLowerCase().includes(term)) {
-        return eachQuote.quote
-      }
-    })
-    return newArray
-  }
-  response.send(filteredQuotes(quotes, term))
+  const results = (filteredQuotes(quotes, term))
+  response.send(results)
 })
 
 //...END OF YOUR CODE
@@ -68,6 +61,14 @@ function pickFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const filteredQuotes = (quoteArray, term) => {
+  let newArray = quoteArray.filter((eachQuote) => {
+    if (eachQuote.quote.toLowerCase().includes(term) || eachQuote.author.toLowerCase().includes(term) ) {
+      return eachQuote.quote
+    }
+  })
+  return newArray
+}
 //Start our server so that it listens for HTTP requests!
 let port = 5000;
 
