@@ -94,7 +94,9 @@ app.put("/quotes/:index", (request, response) => {
 // DELETE - Delete an existing quote from the array
 
 app.delete("/quotes/:index", (request, response) => {
-  response.send()
+  const index = parseInt(request.params.index) -1
+  quotes.splice(index, 1 , undefined)
+  response.status(204).send()
 })
 
 //...END OF YOUR CODE
