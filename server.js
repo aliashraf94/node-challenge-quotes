@@ -69,8 +69,14 @@ app.get("/quotes/:index", (request, response) => {
 // POST - Create a new quote (add it to the end of the array)
 
 app.post("/quotes", (request, response) => {
+  const quote = {
+    quote: request.params.quote,
+    author: request.params.author,
+  }
 
-  response.send()
+  quotes.push(quote)
+
+  response.status(201).send({id: quotes.length})
 })
 
 // PUT - Update an existing quote
