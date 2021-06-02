@@ -51,6 +51,42 @@ app.get ('/quotes/search', (request, response) => {
   response.send(results)
 })
 
+// Practice some Inclass Ecercises with Yonah Week-2 NodeJs
+
+// GET - Returns a single quote object (by it's position in the array)
+
+app.get("/quotes/:index", (request, response) => {
+  const index = parseInt(request.params.index) -1
+  const quote = quotes[index]
+  if (quote) {
+    response.status(201).send(quote)
+  } else {
+    response.status(404).send()
+  }
+})
+
+
+// POST - Create a new quote (add it to the end of the array)
+
+app.post("/quotes", (request, response) => {
+
+  response.send()
+})
+
+// PUT - Update an existing quote
+
+app.put("/quotes/:id", (request, response) => {
+
+  response.send()
+})
+
+// DELETE - Delete an existing quote from the array
+
+app.delete("/quotes/:id", (request, response) => {
+
+  response.send()
+})
+
 //...END OF YOUR CODE
 
 //You can use this function to pick one element at random from a given array
