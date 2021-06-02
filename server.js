@@ -59,7 +59,7 @@ app.get("/quotes/:index", (request, response) => {
   const index = parseInt(request.params.index) -1
   const quote = quotes[index]
   if (quote) {
-    response.status(201).send(quote)
+    response.status(200).send(quote)
   } else {
     response.status(404).send()
   }
@@ -70,8 +70,8 @@ app.get("/quotes/:index", (request, response) => {
 
 app.post("/quotes", (request, response) => {
   const quote = {
-    quote: request.params.quote,
-    author: request.params.author,
+    quote: request.query.quote,
+    author: request.query.author,
   }
 
   quotes.push(quote)
@@ -81,15 +81,19 @@ app.post("/quotes", (request, response) => {
 
 // PUT - Update an existing quote
 
-app.put("/quotes/:id", (request, response) => {
-
-  response.send()
+app.put("/quotes/:index", (request, response) => {
+  const index = parseInt(request.params.index) -1
+  const quote = {
+    quote: request.query.quote,
+    author: request.query.author,
+  }
+  const result = quotes.splice(index, 1 ,quote)
+  response.status(200).send(quote)
 })
 
 // DELETE - Delete an existing quote from the array
 
-app.delete("/quotes/:id", (request, response) => {
-
+app.delete("/quotes/:index", (request, response) => {
   response.send()
 })
 
